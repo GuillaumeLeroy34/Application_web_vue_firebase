@@ -1,0 +1,26 @@
+html{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+}
+
+html{
+    font-family: 'Abel';
+    font-size: 18px;
+    }
+    p::first-letter, h3::first-letter{
+      font-size: 1.5rem;
+      font-family: 'Great Vibes', cursive;
+      color:  #00AEEF
+    }
+    p, ul{
+      font-family: 'Abel';
+      font-size: 18px;
+    
+    }
+    
+    .text-box{
+      background-color: #5A449C;
+      padding: 2px;
+      color: white;
+    }
+    
