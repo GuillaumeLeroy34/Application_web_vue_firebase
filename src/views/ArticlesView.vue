@@ -64,7 +64,7 @@ let URLTelechargementImage = ref("");
 let fichier; //déclaration du fichier dans la scope globale
 
 
-testID
+
 
 
 
