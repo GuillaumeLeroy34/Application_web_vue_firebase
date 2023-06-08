@@ -27,7 +27,6 @@ function getImages() {
 onBeforeMount(() => {
   getImages();
 })
-console.log(`${qdgsdfgdgdgfd}`);
 //& DEBUG FUNCTIONS
 
 function logListeImages(){

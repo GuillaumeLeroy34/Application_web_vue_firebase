@@ -53,7 +53,7 @@ let listeArticles = reactive([]);
 let listeImages = reactive([]);
 
 const dateToday = Date.now()
-let editMode = ref(true); //? variable de l'application qui contient les valeurs a afficher
+let editMode = ref(false); //? variable de l'application qui contient les valeurs a afficher
 // dateToday
 let titreArticle = ref('');
 let contenuArticle = ref("");
@@ -223,6 +223,11 @@ function afficherListeArticles() {
   console.log(listeArticles);
 }
 
+function debugLogArticle(){
+  console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
+}
+
+
 //& MOUNT FUNCTIONS
 onBeforeMount(() => {
   getArticles();
@@ -232,13 +237,13 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <button @click="editMode = !editMode"  class="bouton-debug">changer visibilité               </button>
-  <button @click="getArticles"     class="bouton-debug">récupération des articles        </button>
-  <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles   </button>
+  <button @click="editMode = !editMode"  class="bouton-debug">changer visibilité            </button>
+  <button @click="getArticles"     class="bouton-debug">récupération des articles           </button>
+  <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
   <button @click="getImages"          class="bouton-debug">récupérer images                 </button>
+  <button @click="debugLogArticle">debug log article</button>
 
   <div>
-
     <div v-if="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
 
       <hr>
@@ -300,4 +305,6 @@ label {
 .input-titre {
   padding: 20%;
 }
+
+
 </style>

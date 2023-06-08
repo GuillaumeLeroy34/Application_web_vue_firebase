@@ -27,7 +27,7 @@
       confort et le bien-être des résidents.
     </p>
     <p>
-      L'établissement est a 14 km de béziers, entre mer et montagne.
+      L'établissement se trouve à 14 km de béziers, entre mer et montagne.
       Il est situé en lisière du village et domine la plaine, près de la place du marché et des principaux commerces.
     </p>
   </section>
@@ -70,7 +70,7 @@
     </p>
   </div>
   <div class="text-box">
-    <p>Pour tout renseignement complémentaire, vous pouvez vous adreser au secrétariat, ouvert du lundi au vendredi
+    <p>Pour tout renseignement complémentaire, vous pouvez vous adresser au secrétariat, ouvert du lundi au vendredi
       de 9h00 à 12h00 et de 13h30 à 17h00, et le samedi de 9h00 à 12h00.
     </p>
   </div>

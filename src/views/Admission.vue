@@ -18,7 +18,7 @@
         <p>Pour tout renseignement complémentaire, vous pouvez vous adresser au secrétariat, ouvert du lundi au vendredi
             de 9h00 à 12h00 et de 13h30 à 17h00, et le samedi de 9h00 à 12h00.
         </p>
-        <p>il est possible de remplir le formulaire <a href="https://www.formulaires.service-public.fr/gf/cerfa_14732.do"
+        <p>il est possible de compléter le formulaire <a href="https://www.formulaires.service-public.fr/gf/cerfa_14732.do"
                 target="_blank">en cliquant ici</a></p>
 
     </div>

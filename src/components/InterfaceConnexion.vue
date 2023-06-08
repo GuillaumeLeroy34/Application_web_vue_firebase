@@ -16,7 +16,7 @@ function login() { // we also renamed this method
             const user = userCredential.user;
             //console.log('Connexion avec succès');
             //console.log(userCredential);
-            router.push('/accueil');
+            router.push('/articles');
         })
         .catch(error => {
             switch (error.code) {
