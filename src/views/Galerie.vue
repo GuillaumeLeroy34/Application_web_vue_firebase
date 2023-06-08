@@ -38,7 +38,7 @@ function logListeImages(){
 <hr>
 <button @click="logListeImages">afficher listeImages</button>
     <div> 
-        <!-- <img v-for="img of listeImages" v-bind:src="img" alt=""  style="width: 400; height: 250px; object-fit: fill;"> -->
+        <img v-for="img of listeImages" v-bind:src="img" alt=""  style="width: 400; height: 250px; object-fit: fill;">
     </div>
 </template>
 

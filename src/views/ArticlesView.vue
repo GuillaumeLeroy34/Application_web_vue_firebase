@@ -111,7 +111,7 @@ function addImage() {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
         URLTelechargementImage = downloadURL;
-        addArticle();
+        addArticle(downloadURL);
       });
     }
   );
@@ -121,14 +121,14 @@ function addImage() {
 
 //* POST ajoute un document dans la collection "Articles"
 //TODO implémenter la date d'ajout et la source de l'image dans la base de données ( utiliser l'url qui est retournée à la fin du post )
-async function addArticle() {
+async function addArticle(urlImage) {
   //? variable interne a firebase
 
   let docRef = await addDoc(collection(db, "Articles"), {
     titre: titreArticle.value,
     contenu: contenuArticle.value,
     date: dateArticle.value,
-    source: URLTelechargementImage.value,
+    source: urlImage,
     id: "testID"
   });
   updateDoc(docRef, { id: docRef.id })
@@ -170,7 +170,7 @@ function getImages() {
       res.items.forEach((itemRef) => {
         getDownloadURL(storageRef(storage, itemRef)).then((downloadURL) => {
           // console.log(`fichier disponible à l'addresse: ${downloadURL}`) 
-          listeImages.push(downloadURL)
+          listeImages.push(downloadURL);
         });
         // All the items under listRef.
       });
@@ -238,10 +238,10 @@ onBeforeMount(() => {
 
 <template>
   <button @click="editMode = !editMode"  class="bouton-debug">changer visibilité            </button>
-  <button @click="getArticles"     class="bouton-debug">récupération des articles           </button>
+  <button @click="getArticles"           class="bouton-debug">récupération des articles     </button>
   <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
-  <button @click="getImages"          class="bouton-debug">récupérer images                 </button>
-  <button @click="debugLogArticle">debug log article</button>
+  <button @click="getImages"             class="bouton-debug">récupérer images              </button>
+  <button @click="debugLogArticle"       class="bouton-debug">debug log article             </button>
 
   <div>
     <div v-if="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
