@@ -86,7 +86,7 @@
   <div class="text-box">
     <ul>
       <li>l'hébergement</li>
-      <!-- voir si il est possible de récupérer des information, le cas échéant transformer ces éléments en lien de redirection vers des pages-->
+      <!-- //TODO voir si il est possible de récupérer des information, le cas échéant transformer ces éléments en lien de redirection vers des pages-->
       <li>les repas</li>
       <li>la participation dépendance</li>
     </ul>

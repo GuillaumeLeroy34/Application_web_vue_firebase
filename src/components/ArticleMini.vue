@@ -12,7 +12,8 @@ const props = defineProps({
     },
     titre: String,
     contenu: String,
-    date: String
+    date: String,
+    isVisible: Boolean
 })
 
 //composant a insérer dans la liste
@@ -27,10 +28,11 @@ const props = defineProps({
                 <p class="contenuArticle"> {{ date }}</p>
             </div>
         </span>
-        <!-- //TODO↓ il faut changer la condition et voir si on peut se débrouiller avec une variable js globale il faut également utiliser l'authentification de firebase attention a l'état du login par défaut -->
-        <nav v-if="true"> <button @click="afficherValeursArticle">changer texte</button><button>changer le titre</button>
-            <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article
-            </button> <button>changer l'image</button>
+        <nav v-if="isVisible"> 
+            <button @click="afficherValeursArticle">changer texte</button>
+            <button>changer le titre</button>
+            <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article</button>
+             <button>changer l'image</button>
         </nav>
     </div>
 </template>

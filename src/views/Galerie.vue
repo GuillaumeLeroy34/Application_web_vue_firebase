@@ -12,7 +12,6 @@ function getImages() {
     .then((res) => {
       res.items.forEach((itemRef) => {
         getDownloadURL(storageRef(storage, itemRef)).then((downloadURL) => {
-          console.log(`fichier disponible à l'adresse: ${downloadURL}`) 
           listeImages.push(downloadURL)
         });
         
@@ -22,21 +21,17 @@ function getImages() {
       console.log(error)
       // Uh-oh, an error occurred!
     });
-    console.log(listeImages)
   }
 onBeforeMount(() => {
   getImages();
 })
 //& DEBUG FUNCTIONS
 
-function logListeImages(){
-  console.log(listeImages);
-}
+
 </script>
 
 <template>
 <hr>
-<button @click="logListeImages">afficher listeImages</button>
     <div> 
         <img v-for="img of listeImages" v-bind:src="img" alt=""  style="width: 400; height: 250px; object-fit: fill;">
     </div>

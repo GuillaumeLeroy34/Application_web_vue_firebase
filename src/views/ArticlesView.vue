@@ -3,7 +3,7 @@
 
 //& IMPORTS
 
-import { ref, reactive, onBeforeMount } from 'vue';
+import { ref, reactive, onBeforeMount, onMounted } from 'vue';
 import ArticleMini from '../components/ArticleMini.vue';
 
 
@@ -12,7 +12,7 @@ import { initializeApp } from "firebase/app";
 import { ref as storageRef, } from "firebase/storage";
 import { getFirestore, updateDoc, } from "firebase/firestore";
 import { getStorage, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "@firebase/storage";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 
@@ -31,39 +31,48 @@ const firebaseConfig = {
 };
 
 const storage = getStorage();
-//? ceci est une référence pointant a la racine du bucket contenant les images de l'ehpad
+// ceci est une référence pointant a la racine du bucket contenant les images de l'ehpad
 //~ exemple: la référence storageRef(srorage, "/Images") va créer un fichier nommé "Images" à la racine du projet 
 
-//? il est possible de spécifier un dossier enfant dans les paramètres de la fonction
+// il est possible de spécifier un dossier enfant dans les paramètres de la fonction
 
 
 
-const app = initializeApp(firebaseConfig); //? Initialize Firebase
-const db = getFirestore(app); //? Initialize Cloud Firestore and get a reference to the service
+const app = initializeApp(firebaseConfig); // Initialize Firebase
+const db = getFirestore(app); //Initialize Cloud Firestore and get a reference to the service
 const metadata = {
   contentType: 'image/png',
-}; //? métadonnée qui sert a firestore
+}; // métadonnée qui sert a firestore
 
 
 
 //& VARIABLES
-//? les variables firestore sont déclarée dans //&firebase
+// les variables firestore sont déclarée dans //&firebase
 let queryListeArticles = reactive(getDocs(collection(db, "Articles")));
 let listeArticles = reactive([]);
 let listeImages = reactive([]);
 
+
 const dateToday = Date.now()
-let editMode = ref(false); //? variable de l'application qui contient les valeurs a afficher
+let editMode = ref(false); // variable de l'application qui contient les valeurs a afficher
 // dateToday
 let titreArticle = ref('');
 let contenuArticle = ref("");
 let dateArticle = ref("2023-06-07");
 let URLTelechargementImage = ref("");
 
-//? sélection du fichier a post sur firebase storage
+// sélection du fichier a post sur firebase storage
 let fichier; //déclaration du fichier dans la scope globale
 
-
+let auth = getAuth()
+onAuthStateChanged(auth, (user) => {
+  if(user){
+    //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
+    editMode = true; // on affiche l'interface de gestion des articles
+  } else {
+    editMode = false;
+  }
+})
 
 
 
@@ -227,24 +236,43 @@ function debugLogArticle(){
   console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
 }
 
+//! ultra moche, s'en débarasser dès que possible
+function workaroundVif(){
+  editMode = editMode;
+
+}
 
 //& MOUNT FUNCTIONS
-onBeforeMount(() => {
+onBeforeMount(() => { // exécuter une fois au chargement de la page 
   getArticles();
 })
 
+onMounted(() => {
+    workaroundVif()
+    
+}),
+
 //todo voir pour stocker des pdf
+function afficherIsLoggedIn(){
+    console.log(`${editMode}`)                                 
+}
+
+
+
 </script>
 
 <template>
-  <button @click="editMode = !editMode"  class="bouton-debug">changer visibilité            </button>
+  <input type="text" name="" id="" placeholder="tests changement dom">
+  <button @click="afficherIsLoggedIn">afficher isLoggedIn</button>
+  <div v-if="editMode">
+     
   <button @click="getArticles"           class="bouton-debug">récupération des articles     </button>
   <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
   <button @click="getImages"             class="bouton-debug">récupérer images              </button>
   <button @click="debugLogArticle"       class="bouton-debug">debug log article             </button>
-
+</div>
   <div>
-    <div v-if="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
+    <div v-show="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
 
       <hr>
 
@@ -271,9 +299,14 @@ onBeforeMount(() => {
         <hr>
       </form>
     </div>
-    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:titre="article.titre"
-      v-bind:contenu="article.contenu" v-bind:source="article.source" v-bind:date="article.date"
-      v-bind:identifiant="article.id">
+
+    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" 
+    v-bind:isVisible="editMode"
+    v-bind:titre="article.titre"
+    v-bind:contenu="article.contenu" 
+    v-bind:source="article.source"
+    v-bind:date="article.date"
+    v-bind:identifiant="article.id">
     </ArticleMini>
 
     <!-- //? articles de test pour le constructeur d'article mini  -->
