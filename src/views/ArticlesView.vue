@@ -53,12 +53,20 @@ let listeArticles = reactive([]);
 let listeImages = reactive([]);
 
 
-const dateToday = Date.now()
-let editMode = ref(false); // variable de l'application qui contient les valeurs a afficher
+let dateToday = new Date()
+let mois = dateToday.getMonth();
+if(mois < 10){
+mois = `0${mois}`
+}
+ let dateEnString = (`${dateToday.getFullYear()}-${mois}-${dateToday.getDate()}`)
+
+let editMode = ref(true); // variable de l'application qui contient les valeurs a afficher
+let couleurStatut = ref("grey");
+let texteStatut = "en attente";
 // dateToday
 let titreArticle = ref('');
 let contenuArticle = ref("");
-let dateArticle = ref("2023-06-07");
+let dateArticle = ref(dateEnString);
 let URLTelechargementImage = ref("");
 
 // sélection du fichier a post sur firebase storage
@@ -66,7 +74,7 @@ let fichier; //déclaration du fichier dans la scope globale
 
 let auth = getAuth()
 onAuthStateChanged(auth, (user) => {
-  if(user){
+  if (user) {
     //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
     editMode = true; // on affiche l'interface de gestion des articles
   } else {
@@ -81,7 +89,7 @@ onAuthStateChanged(auth, (user) => {
 function addImage() {
   console.log(`${titreArticle} `);
   const storagerefFirestore = storageRef(storage, `/Images/${fichier.name}`)
-  console.log(`l'image qui sera déployée sera "${fichier.name}"`) //TODO changer ça en retour visuel sur le site
+  texteStatut = `l'image qui sera déployée sera "${fichier.name}"` //TODO changer ça en retour visuel sur le site
   let uploadTask = uploadBytesResumable(storagerefFirestore, fichier, metadata)
   uploadTask.on('state_changed',
     (snapshot) => {
@@ -93,7 +101,8 @@ function addImage() {
           console.log('Upload is paused');
           break;
         case 'running':
-          console.log('Upload is running');
+          texteStatut = 'Upload is running';
+          couleurStatut = "yellow"
           break;
       }
     },
@@ -118,7 +127,7 @@ function addImage() {
     () => {
       // Upload completed successfully, now we can get the download URL
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
+        // console.log('File available at', downloadURL);
         URLTelechargementImage = downloadURL;
         addArticle(downloadURL);
       });
@@ -143,7 +152,8 @@ async function addArticle(urlImage) {
   updateDoc(docRef, { id: docRef.id })
   getArticles()
 
-
+  texteStatut= "article ajouté avec succès";
+  couleurStatut = "green";
 }
 
 //TODO retourner le statut de la publication de l'article dans un champ de texte coloré pour avertir l'utilisateur
@@ -156,7 +166,7 @@ async function getArticles() {
   listeArticles.splice(0, listeArticles.length) //? on nettoie la liste des articles
   queryListeArticles = await getDocs(collection(db, "Articles")) //? fetch
   queryListeArticles.forEach((element) => {
-    console.log(element.data());
+    // console.log(element.data());
     listeArticles.push({
       titre: element.data().titre,
       contenu: element.data().contenu,
@@ -165,7 +175,7 @@ async function getArticles() {
       id: element.data().id
     }) //? on rajoute les articles formatés dans la liste
   });
-  console.log(listeArticles)
+  // console.log(listeArticles)
 }
 
 
@@ -185,6 +195,9 @@ function getImages() {
       });
     }).catch((error) => {
       console.log(error)
+      couleurStatut = "red"
+      texteStatut = "une erreur est survenue!"+error;
+
       // Uh-oh, an error occurred!
     });
 }
@@ -198,11 +211,13 @@ async function deleteArticle(idItem) {
   let itemRef = doc(db, "Articles", idItem)
   await deleteDoc(itemRef).then(() => {
     // File deleted successfully
-    console.log("fichier supprimé avec succès")
+    texteStatut = "fichier supprimé avec succès"
     getArticles();
   }).catch((error) => {
     // Uh-oh, an error occurred!
     console.log(error)
+    couleurStatut = "red";
+    texteStatut = `une erreur est survenue! code d'erreur: ${error}`
   });
 }
 
@@ -232,30 +247,21 @@ function afficherListeArticles() {
   console.log(listeArticles);
 }
 
-function debugLogArticle(){
+function debugLogArticle() {
   console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
 }
 
-//! ultra moche, s'en débarasser dès que possible
-function workaroundVif(){
-  editMode = editMode;
-
-}
 
 //& MOUNT FUNCTIONS
 onBeforeMount(() => { // exécuter une fois au chargement de la page 
   getArticles();
 })
 
-onMounted(() => {
-    workaroundVif()
-    
-}),
 
-//todo voir pour stocker des pdf
-function afficherIsLoggedIn(){
-    console.log(`${editMode}`)                                 
-}
+  //todo voir pour stocker des pdf
+  function afficherIsLoggedIn() {
+    console.log(`edit mode:${editMode} dateToday:${dateEnString}`)
+  }
 
 
 
@@ -264,13 +270,13 @@ function afficherIsLoggedIn(){
 <template>
   <input type="text" name="" id="" placeholder="tests changement dom">
   <button @click="afficherIsLoggedIn">afficher isLoggedIn</button>
-  <div v-if="editMode">
-     
-  <button @click="getArticles"           class="bouton-debug">récupération des articles     </button>
-  <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
-  <button @click="getImages"             class="bouton-debug">récupérer images              </button>
-  <button @click="debugLogArticle"       class="bouton-debug">debug log article             </button>
-</div>
+  <div v-if="editMode.valueOf">
+
+    <button @click="getArticles" class="bouton-debug">récupération des articles </button>
+    <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
+    <button @click="getImages" class="bouton-debug">récupérer images </button>
+    <button @click="debugLogArticle" class="bouton-debug">debug log article </button>
+  </div>
   <div>
     <div v-show="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
 
@@ -298,15 +304,14 @@ function afficherIsLoggedIn(){
         <input type="submit" value="valider">
         <hr>
       </form>
+      <label> statut: <input type="text" name="" v-bind:value="texteStatut" readonly size="50"
+          :style="{ color: couleurStatut }">
+      </label>
     </div>
 
-    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" 
-    v-bind:isVisible="editMode"
-    v-bind:titre="article.titre"
-    v-bind:contenu="article.contenu" 
-    v-bind:source="article.source"
-    v-bind:date="article.date"
-    v-bind:identifiant="article.id">
+    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:isVisible="editMode"
+      v-bind:titre="article.titre" v-bind:contenu="article.contenu" v-bind:source="article.source"
+      v-bind:date="article.date" v-bind:identifiant="article.id">
     </ArticleMini>
 
     <!-- //? articles de test pour le constructeur d'article mini  -->
@@ -338,6 +343,4 @@ label {
 .input-titre {
   padding: 20%;
 }
-
-
 </style>

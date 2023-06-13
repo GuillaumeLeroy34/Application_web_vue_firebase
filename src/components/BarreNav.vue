@@ -24,6 +24,7 @@ import { ref } from "vue"
 /*//? Import de la police d'écriture cursive pour le titre */
 
 p {
+    white-space: nowrap;
     display: inline;
     font-family: 'Great Vibes', cursive;
     font-size: xx-large;

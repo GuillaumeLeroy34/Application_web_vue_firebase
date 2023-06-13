@@ -13,7 +13,7 @@
 
 
   <section class="container">
-    <h1>Résidence "Les Tilleuls"</h1>
+    <h1>La résidence:</h1>
     <hr>
 <!--  -->
     <!-- mettre une photo ici de la résidence-->
@@ -62,7 +62,7 @@
     <div id="map"></div> <!-- composant pour mettre la carte google maps-->
   </section>
 
-  <h2>Admission</h2>
+  <!-- <h2>Admission</h2>
   <div class="text-box">
     <p>La Résidence reçoit des personnes autonomes de plus de 60 ans. Lors de votre entrée, un dossier vous sera remis.
       Il comprend divers formulaires que vous voudrez bien remplir et nous retourner dans les meilleurs délais.
@@ -85,9 +85,9 @@
   <h3>Ils sont détaillés comme suit:</h3>
   <div class="text-box">
     <ul>
-      <li>l'hébergement</li>
+      <li>l'hébergement</li> -->
       <!-- //TODO voir si il est possible de récupérer des information, le cas échéant transformer ces éléments en lien de redirection vers des pages-->
-      <li>les repas</li>
+     <!-- <li>les repas</li>
       <li>la participation dépendance</li>
     </ul>
   </div>
@@ -174,7 +174,7 @@
           Voir la rubrique "Articles" pour des exemples d'activités effectuées par nos séniors par le passé.</p>
       </div>
     </li>
-  </ul>
+  </ul> -->
 </template>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); /*import de la police d'écriture manuscrite pour le titre */
@@ -196,7 +196,7 @@ p, ul{
 }
 
 .text-box{
-  background-color: #5A449C;
+  background-color: #795cce;
   padding: 2px;
   color: white;
 }

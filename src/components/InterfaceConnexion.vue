@@ -1,19 +1,19 @@
-
 <script setup>
-
 import { ref, reactive } from 'vue';
 //import firebase from "firebase";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { useRouter } from 'vue-router';// import router
+const router = useRouter();
+
 let email = ref("");
 let password = ref("");
 let errMsg = ref();
-const router = useRouter();
-const auth = getAuth();
-let isLoggedIn = ref(false)
+
+let isLoggedIn = ref(false);
 
 
 
+let auth = getAuth();
 onAuthStateChanged(auth, (webUser) => {
     if (webUser) {
         isLoggedIn = true;
@@ -21,8 +21,6 @@ onAuthStateChanged(auth, (webUser) => {
         isLoggedIn = false;
     }
 })
-
-
 
 
 function login() { // we also renamed this method
@@ -85,11 +83,10 @@ function logout() {
         <!-- Submit button -->
         <button type="submit" id="button-auth" class="btn btn-primary btn-block mb-4">Connexion</button>
 
-        <div v-show="isLoggedIn">
+        <div v-show="isLoggedIn.valueOf()">
             <button @click="logout">se déconnecter</button>
 
         </div>
 
     </form>
 </template>
-
