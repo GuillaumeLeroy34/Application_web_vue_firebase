@@ -39,6 +39,7 @@ h1 {
                                   
                                   
 .text-box {
+    padding-left: 15px;
     border-radius: 5px;                                         
     background-color: #7357c7;                                                                     
     padding: 2px;                                                                     
@@ -47,7 +48,7 @@ h1 {
 }                                                                     
                                   
 .text-box>p, .text-box>ul>li{                                                                     
-    filter: drop-shadow(3px 3px 2px #000);                                                                     
+text-align: justify;
 }                                                                     
                                   
 img {                                                                     

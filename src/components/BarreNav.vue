@@ -68,6 +68,10 @@ a:hover{
     background-color: rgb(0, 205, 0);
 }
 
+nav .router-link{
+    font-size: 24px;
+}
+
 nav .router-link-active{
     background-color: bisque;
 }
