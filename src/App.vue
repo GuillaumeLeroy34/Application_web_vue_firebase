@@ -11,7 +11,7 @@ import BarreNav from './components/BarreNav.vue';
   <div class="barreNav"><BarreNav></BarreNav></div>
 
   <div class="routerview">
-      <!-- <router-view></router-view> -->
+      <router-view></router-view>
   </div>
 </template>
 
@@ -20,9 +20,7 @@ import BarreNav from './components/BarreNav.vue';
 
 .barreNav{
   top: 0;
-  
   overflow-y: "hidden";
-  height: 100%;
   width: 100%;
   position: fixed;
   margin-top: 10px;

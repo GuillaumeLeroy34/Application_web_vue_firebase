@@ -1,5 +1,4 @@
 <script>
-import { getIsAdmin  } from "../router/index"
 import { ref } from "vue"
 
 
@@ -14,7 +13,7 @@ import { ref } from "vue"
             <router-link to="/services">services</router-link>
             <router-link to="/articles">articles</router-link>
             <router-link to="/galerie">galerie</router-link>
-            <router-link to="/connexion-admin" v-if="this.$isAdmin">Admin</router-link>
+            <router-link to="/connexion-admin">Connexion</router-link>
     </nav>
 </template>
 

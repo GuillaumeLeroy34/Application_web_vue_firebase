@@ -16,9 +16,9 @@ let isLoggedIn = ref(false);
 let auth = getAuth();
 onAuthStateChanged(auth, (webUser) => {
     if (webUser) {
-        isLoggedIn = true;
+        isLoggedIn.value = true;
     } else {
-        isLoggedIn = false;
+        isLoggedIn.value = false;
     }
 })
 
@@ -29,7 +29,7 @@ function login() { // we also renamed this method
             const user = userCredential.user;
             //console.log('Connexion avec succès');
             //console.log(userCredential);
-            router.push('/articles');
+            router.push('/connexion-admin');
         })
         .catch(error => {
             switch (error.code) {
@@ -57,33 +57,35 @@ function logout() {
 
 //& DEBUG
 
-           function afficherIsLoggedIn(){
-               console.log(`${isLoggedIn}`)                                    
-           }
+function afficherIsLoggedIn() {
+    console.log(`${isLoggedIn}`)
+}
 </script>
 
 <template>
-            <button @click="afficherIsLoggedIn">afficher isLoggedIn</button>
     <form @submit.prevent="login">
         <!-- Email input -->
-        <div class="form-outline mb-4">
-            <p class="title">Veuillez vous connecter</p>
-            <label class="form-label" for="form2Example1">Adresse mail</label>
-            <input type="email" id="form2Example1" class="form-control" placeholder="Entrez votre E-mail" v-model="email" />
-        </div>
+        <div v-if="!isLoggedIn">
+            <div class="form-outline mb-4">
+                <p class="title">Veuillez vous connecter</p>
+                <label class="form-label" for="form2Example1">Adresse mail</label>
+                <input type="email" id="form2Example1" class="form-control" placeholder="Entrez votre E-mail"
+                    v-model="email" />
+            </div>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example2">Mot de passe</label>
-            <input type="password" id="form2Example2" class="form-control" placeholder="Entrez votre mot de passe"
-                v-model="password" />
-        </div>
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example2">Mot de passe</label>
+                <input type="password" id="form2Example2" class="form-control" placeholder="Entrez votre mot de passe"
+                    v-model="password" />
+            </div>
+        
         <p class="errorMsg" v-if="errMsg">{{ errMsg }}</p><br>
 
         <!-- Submit button -->
         <button type="submit" id="button-auth" class="btn btn-primary btn-block mb-4">Connexion</button>
-
-        <div v-show="isLoggedIn.valueOf()">
+    </div>
+        <div v-else>
             <button @click="logout">se déconnecter</button>
 
         </div>

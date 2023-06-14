@@ -46,7 +46,7 @@ onBeforeMount(() => {
   <div>
     <img v-for="(img, index) of   listeImages  " v-bind:src="img" alt="" style="width: 250px; height: 251px; object-fit:
       fill;"
-      :style="colors[index % 4]">
+      :style="colors[index % 5]">
   </div>
 </template>
 
