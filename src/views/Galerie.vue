@@ -1,9 +1,27 @@
 <script setup>
-import { onBeforeMount, reactive } from 'vue';
-import { getStorage, ref as storageRef, listAll, getDownloadURL } from 'firebase/storage';
 
+
+import { onBeforeMount, reactive, ref } from 'vue';
+import { getStorage, ref as storageRef, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import ArticlesView from './ArticlesView.vue';
 let listeImages = reactive([]);
 const storage = getStorage();
+
+let auth = getAuth();
+let  isLoggedIn = ref(false);
+
+
+onAuthStateChanged(auth, (webUser) => {
+  if (webUser) {
+    isLoggedIn.value = true;
+  } else {
+    isLoggedIn.value = false;
+  }
+
+})
+
+
 
 const colors = [
   { "border-color": "#00AEEF" },
@@ -33,6 +51,23 @@ function getImages() {
       // Uh-oh, an error occurred!
     });
 }
+
+
+function deleteImage(source){
+  listeImages.pop(source)
+  let refSuppression = storageRef(storage,source)
+  deleteObject(refSuppression);
+  alert("L'image a été supprimée avec succès")
+  getImages()
+}
+
+
+
+
+
+
+
+
 onBeforeMount(() => {
   getImages();
 })
@@ -42,17 +77,17 @@ onBeforeMount(() => {
 </script>
 
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <hr>
-  <div>
-    <img v-for="(img, index) of   listeImages  " v-bind:src="img" alt="" style="width: 250px; height: 251px; object-fit:
-      fill;"
-      :style="colors[index % 5]">
-  </div>
+  <span v-for="(img, index) of   listeImages">
+    <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button>
+    <img :src="img" alt="" style="width: 250px; height: 251px; object-fit:
+      fill;" :style="colors[index % 5]">
+
+  </span>
 </template>
 
 <style scoped>
-
-
 img:hover {
 
   -ms-transform: scale(2) translate(30px);
@@ -62,4 +97,5 @@ img:hover {
   transform: scale(1.5) translate(30px);
   overflow: hidden;
 }
+
 </style>

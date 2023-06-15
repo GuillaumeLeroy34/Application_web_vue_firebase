@@ -1,18 +1,19 @@
-<script>
+<script setup> 
 import { ref } from "vue"
-
+import { useRouter } from 'vue-router';// import router
+const router = useRouter();
 
 
 </script>
 
 <template>
     <nav>
-            <p>Résidence "Les Tilleuls"</p>
+            <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p>
             <router-link to="/">Accueil</router-link>
-            <router-link to="/admission">admission</router-link>
-            <router-link to="/services">services</router-link>
-            <router-link to="/articles">articles</router-link>
-            <router-link to="/galerie">galerie</router-link>
+            <router-link to="/admission">Admission</router-link>
+            <router-link to="/services">Services</router-link>
+            <router-link to="/articles">Actualités</router-link>
+            <router-link to="/galerie">Galerie</router-link>
             <router-link to="/connexion-admin">Connexion</router-link>
     </nav>
 </template>

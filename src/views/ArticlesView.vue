@@ -32,7 +32,7 @@ const firebaseConfig = {
 
 const storage = getStorage();
 // ceci est une référence pointant a la racine du bucket contenant les images de l'ehpad
-//~ exemple: la référence storageRef(srorage, "/Images") va créer un fichier nommé "Images" à la racine du projet 
+//~ exemple: la référence storageRef(storage, "/Images") va créer un fichier nommé "Images" à la racine du projet 
 
 // il est possible de spécifier un dossier enfant dans les paramètres de la fonction
 
@@ -85,7 +85,7 @@ onAuthStateChanged(auth, (user) => {
 
 
 
-//* POST ajout d'une image sur firestore ( cela peut être n'importequel type de fichier, mais il faudra écrire une autre fonction)
+//* POST ajout d'une image sur firestore ( cela peut être n'importe quel type de fichier, mais il faudra écrire une autre fonction)
 function addImage() {
   console.log(`${titreArticle} `);
   const storagerefFirestore = storageRef(storage, `/Images/${fichier.name}`)
@@ -268,10 +268,7 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 </script>
 
 <template>
-  <input type="text" name="" id="" placeholder="tests changement dom">
-  <button @click="afficherIsLoggedIn">afficher isLoggedIn</button>
-  <div v-if="editMode.valueOf">
-
+  <div v-if="editMode">
     <button @click="getArticles" class="bouton-debug">récupération des articles </button>
     <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
     <button @click="getImages" class="bouton-debug">récupérer images </button>
