@@ -25,7 +25,7 @@
     <h2> Les frais de séjour</h2>
     <div class="text-box">
         <p><span class="underlined">Aucune caution n'est demandée lors de l'admission.</span>
-        Au 1<sup>e</sup> janvier de chaque année, un arrêté du président du Conseil Général fixe les prix de journée applicables à
+        Au 1er janvier de chaque année, un arrêté du président du Conseil Général fixe les prix de journée applicables à
             l'établissement.
             Les frais de séjour sont payables mensuellement à terme échu au Trésor Public.
         </p>

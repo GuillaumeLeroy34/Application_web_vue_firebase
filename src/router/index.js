@@ -64,6 +64,11 @@ const router = createRouter({
       path: '/services',
       name: "services proposés",
       component: Services
+    },
+    {
+      path: '/contacts',
+      name: "contacts au sein de l'ehpad",
+      component: ()=> import('../views/Contacts.vue')
     }
   ]
 })

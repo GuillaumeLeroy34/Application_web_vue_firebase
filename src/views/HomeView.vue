@@ -52,7 +52,7 @@
     </div>
 
     <div class="text-box">
-      <p>Depuis le 1e décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes Âgées
+      <p>Depuis le 1e décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes âgées
         Dependantes.
         il est donc possible d'accueillir des personnes ayant perdu leur autonomie.
         L'établissement a recruté du personnel médical tel que des infirmières, des aides soignants, une psychologue, et

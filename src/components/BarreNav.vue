@@ -1,4 +1,4 @@
-<script setup> 
+<script setup>
 import { ref } from "vue"
 import { useRouter } from 'vue-router';// import router
 const router = useRouter();
@@ -7,15 +7,18 @@ const router = useRouter();
 </script>
 
 <template>
-    <nav>
-            <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p>
-            <router-link to="/">Accueil</router-link>
-            <router-link to="/admission">Admission</router-link>
-            <router-link to="/services">Services</router-link>
-            <router-link to="/articles">Actualités</router-link>
-            <router-link to="/galerie">Galerie</router-link>
-            <router-link to="/connexion-admin">Connexion</router-link>
+    <nav class="wrapper">
+        <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p>
+        <router-link to="/" class="left-link">Accueil</router-link>
+        <router-link to="/admission">Admission</router-link>
+        <router-link to="/services">Services</router-link>
+        <router-link to="/articles">Actualités</router-link>
+        <router-link to="/galerie">Galerie</router-link>
+        <router-link to="/contacts">Contacts</router-link>
+        <router-link to="/connexion-admin" class="right-link">Connexion</router-link>
+
     </nav>
+    <!-- <img src="/src/assets/images/cadre TIlleuls.png" style="width: 100px; height: 100px; object-fit: fill;"> -->
 </template>
 
 
@@ -24,6 +27,7 @@ const router = useRouter();
 /*//? Import de la police d'écriture cursive pour le titre */
 
 p {
+    cursor: pointer;
     white-space: nowrap;
     display: inline;
     font-family: 'Great Vibes', cursive;
@@ -35,10 +39,11 @@ p {
 
 
 nav {
+    align-items: center;
     width: max-content;
     padding: 10px;
     padding-top: 20px;
-    vertical-align: middle;
+    vertical-align: bottom;
     display: flex;
     justify-content: flex-start;
     text-align: center;
@@ -52,28 +57,54 @@ nav {
     background-color: #dfdfdf;
 }
 
+nav .router-link {
+
+    font-size: 24px;
+    background-image: url("/src/assets/images/décoration liens.png");
+    position: relative;
+    width: 300px;
+    padding-top: 10px;
+    left: 60px;
+    top: 30px;
+    border: "none";
+}
+
+nav .router-link-active {
+    background-color: bisque;
+}
+
+.divNav {
+    background-color: aquamarine;
+}
+
 /* palettes de couleur: bleu: #00AEEF rose: #ED028C jaune: #FFF101 
 bleu:#2E3092            rouge:#EE1D23 vert: #00A54F  gris: #363539 
 noir:# 231F20           pourpre   cramoisi: #5A449C
 */
 
-a{
-vertical-align: middle  ;
-text-decoration: none;
-background-color: #00A54F;
-padding-left: 4%;
-padding-right: 4%;
+a  {
+    font-weight: bold;
+    vertical-align: middle;
+    text-decoration: none;
+    background-color: #00A54F;
+    padding-left: 3%;
+    padding-right: 3%;
 }
-a:hover{
+
+
+
+a:hover {
     background-color: rgb(0, 205, 0);
 }
 
-nav .router-link{
-    font-size: 24px;
+.left-link {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
-nav .router-link-active{
-    background-color: bisque;
-}
+.right-link {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 
+}
 </style>

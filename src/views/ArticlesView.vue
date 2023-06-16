@@ -60,10 +60,9 @@ mois = `0${mois}`
 }
  let dateEnString = (`${dateToday.getFullYear()}-${mois}-${dateToday.getDate()}`)
 
-let editMode = ref(true); // variable de l'application qui contient les valeurs a afficher
+let isLoggedIn = ref(true); // variable de l'application qui contient les valeurs a afficher
 let couleurStatut = ref("grey");
 let texteStatut = "en attente";
-// dateToday
 let titreArticle = ref('');
 let contenuArticle = ref("");
 let dateArticle = ref(dateEnString);
@@ -76,9 +75,9 @@ let auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
     //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
-    editMode = true; // on affiche l'interface de gestion des articles
+    isLoggedIn = true; // on affiche l'interface de gestion des articles
   } else {
-    editMode = false;
+    isLoggedIn = false;
   }
 })
 
@@ -211,7 +210,7 @@ async function deleteArticle(idItem) {
   let itemRef = doc(db, "Articles", idItem)
   await deleteDoc(itemRef).then(() => {
     // File deleted successfully
-    texteStatut = "fichier supprimé avec succès"
+    texteStatut = "Article supprimé avec succès."
     getArticles();
   }).catch((error) => {
     // Uh-oh, an error occurred!
@@ -223,7 +222,6 @@ async function deleteArticle(idItem) {
 
 //*GET récupère le fichier dans l'input file pour le post sur le bucket du cloud
 function previewFiles(event) {
-  console.log(`fichier selectionné: ${event.target.files[0]}`)
   fichier = event.target.files[0];
 }
 
@@ -259,23 +257,16 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 
 
   //todo voir pour stocker des pdf
-  function afficherIsLoggedIn() {
-    console.log(`edit mode:${editMode} dateToday:${dateEnString}`)
-  }
 
 
 
 </script>
 
 <template>
-  <div v-if="editMode">
-    <button @click="getArticles" class="bouton-debug">récupération des articles </button>
-    <button @click="afficherListeArticles" class="bouton-debug">afficher la liste des articles</button>
-    <button @click="getImages" class="bouton-debug">récupérer images </button>
-    <button @click="debugLogArticle" class="bouton-debug">debug log article </button>
-  </div>
+  <div v-if="isLoggedIn">
+      </div>
   <div>
-    <div v-show="editMode"> <!-- //? sert a contrôler la visibilité du form  -->
+    <div v-show="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
 
       <hr>
 
@@ -299,39 +290,23 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 
         <input type="date" name="date" id="" v-model="dateArticle">
         <input type="submit" value="valider">
-        <hr>
       </form>
       <label> statut: <input type="text" name="" v-bind:value="texteStatut" readonly size="50"
-          :style="{ color: couleurStatut }">
+        :style="{ color: couleurStatut }">
       </label>
+      <hr>
     </div>
 
-    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:isVisible="editMode"
+    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:isVisible="isLoggedIn"
       v-bind:titre="article.titre" v-bind:contenu="article.contenu" v-bind:source="article.source"
       v-bind:date="article.date" v-bind:identifiant="article.id">
     </ArticleMini>
 
-    <!-- //? articles de test pour le constructeur d'article mini  -->
-    <!-- <ArticleMini sourceImage="/src/assets/images/DSC01297.JPG" titre="Dolor Sit amet consectetur " contenu="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec tortor eget ante molestie venenatis. 
-        Morbi lorem erat, sagittis a diam ac, blandit facilisis urna. Donec nec dui sed sem tincidunt consectetur.
-         Nunc eget massa sodales, ultrices risus at, finibus felis. Mauris cursus metus ut quam laoreet, eget egestas mi ultrices.
-          Nunc pharetra diam magna, eget porta libero auctor eget. Cras convallis mattis elit, sit amet cursus elit tincidunt non. 
-          Nullam quam erat, porttitor eget ligula sit amet, rhoncus sollicitudin risus. Vestibulum vitae hendrerit augue, facilisis 
-          pellentesque nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.">
-        </ArticleMini>
-
-
-        <ArticleMini sourceImage="/src/assets/images/DSC01273.JPG" titre="Titre du deuxième article ajouté" contenu="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec tortor eget ante molestie venenatis. 
-        Morbi lorem erat, sagittis a diam ac, blandit facilisis urna. Donec nec dui sed sem tincidunt consectetur.
-         Nunc eget massa sodales, ultrices risus at, finibus felis. Mauris cursus metus ut quam laoreet, eget egestas mi ultrices.
-          Nunc pharetra diam magna, eget porta libero auctor eget. Cras convallis mattis elit, sit amet cursus elit tincidunt non. 
-          Nullam quam erat, porttitor eget ligula sit amet, rhoncus sollicitudin risus. Vestibulum vitae hendrerit augue, facilisis 
-          pellentesque nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.">
-        </ArticleMini> -->
   </div>
 </template>
 <style scoped>
 label {
+
   position: relative;
   display: table;
   vertical-align: middle;

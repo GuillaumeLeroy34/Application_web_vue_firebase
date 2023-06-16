@@ -2,27 +2,19 @@
 
 
 import { onBeforeMount, reactive, ref } from 'vue';
-import { getStorage, ref as storageRef, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
+import { getStorage, ref as storageRef, listAll, getDownloadURL, deleteObject, uploadBytesResumable } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import ArticlesView from './ArticlesView.vue';
+
+//& VARIABLES
 let listeImages = reactive([]);
 const storage = getStorage();
-
 let auth = getAuth();
 let  isLoggedIn = ref(false);
-
-
-onAuthStateChanged(auth, (webUser) => {
-  if (webUser) {
-    isLoggedIn.value = true;
-  } else {
-    isLoggedIn.value = false;
-  }
-
-})
-
-
-
+let fichier;
+const metadata = {
+  contentType: 'image/png',
+}; 
 const colors = [
   { "border-color": "#00AEEF" },
   { "border-color": "#FFF101" },
@@ -34,6 +26,53 @@ const colors = [
   { "border-color": "#5A449C" }
 ]
 
+onAuthStateChanged(auth, (webUser) => {
+  if (webUser) {
+    isLoggedIn.value = true;
+  } else {
+    isLoggedIn.value = false;
+  }
+
+})
+
+
+//& FONCTIONS
+//* POST ajout d'une image sur le bucket Firebase
+function addImage() {
+  const storagerefFirestore = storageRef(storage, `/Images/${fichier.name}`)
+  let uploadTask = uploadBytesResumable(storagerefFirestore, fichier, metadata)
+  uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          break;
+      }
+    },
+    (error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break
+        // ... 
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    })}
+
+
+//* GET récupération de toutes les images dans le dossier /Images du bucket firebase
 function getImages() {
   listeImages.splice(0, listeImages.length)
   const storageImages = storageRef(storage, "/Images/")
@@ -52,21 +91,18 @@ function getImages() {
     });
 }
 
-
+//* DELETE suppression d'une image de la galerie
 function deleteImage(source){
   listeImages.pop(source)
   let refSuppression = storageRef(storage,source)
   deleteObject(refSuppression);
-  alert("L'image a été supprimée avec succès")
   getImages()
+  alert("L'image a été supprimée avec succès")
 }
 
-
-
-
-
-
-
+function previewFiles(event) {
+  fichier = event.target.files[0];
+}
 
 onBeforeMount(() => {
   getImages();
@@ -79,17 +115,35 @@ onBeforeMount(() => {
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <hr>
+  <form @submit.prevent="addImage" v-if="isLoggedIn">
+    <input type="file" name="" id="" accept="image/*" @change="previewFiles">
+    <input type="submit" value="">
+  </form>
+
   <span v-for="(img, index) of   listeImages">
-    <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button>
-    <img :src="img" alt="" style="width: 250px; height: 251px; object-fit:
+    <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button> 
+                            <!-- si l'utilisateur est connecté, on applique la classe noZoom aux images -->
+    <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="width: 250px; height: 251px; object-fit:
       fill;" :style="colors[index % 5]">
 
   </span>
 </template>
 
 <style scoped>
-img:hover {
+button{
+  position: absolute;
+  background-color: #00A54F;
+  color: white;
+  border: none;
+  margin: 10px;
+  z-index: 10;
+}
 
+button:hover{
+  background-color: #00d064;
+  color: black;
+}
+[class="image"]:hover{
   -ms-transform: scale(2) translate(30px);
   /* IE 9 */
   -webkit-transform: scale(2) translate(30px);
@@ -97,5 +151,6 @@ img:hover {
   transform: scale(1.5) translate(30px);
   overflow: hidden;
 }
+
 
 </style>

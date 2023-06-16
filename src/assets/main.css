@@ -59,6 +59,7 @@ img {
 .navRouters>li {
      float: left;
     flex-direction: column;
+    vertical-align: middle;
     justify-content: center;
 
 }
