@@ -71,7 +71,7 @@ const router = createRouter({
       component: ()=> import('../views/Contacts.vue')
     },
     {
-      path: '\googlefe5b7649f656933e.html',
+      path: '/googlefe5b7649f656933e.html',
       name: 'googlefe5b7649f656933e.html',
       component: () => import('../assets/googlefe5b7649f656933e.html')
 
