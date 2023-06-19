@@ -75,9 +75,9 @@ let auth = getAuth()
 onAuthStateChanged(auth, (user) => {
   if (user) {
     //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
-    isLoggedIn = true; // on affiche l'interface de gestion des articles
+    isLoggedIn.value = true; // on affiche l'interface de gestion des articles
   } else {
-    isLoggedIn = false;
+    isLoggedIn.value     = false;
   }
 })
 
@@ -213,10 +213,7 @@ async function deleteArticle(idItem) {
     texteStatut = "Article supprimé avec succès."
     getArticles();
   }).catch((error) => {
-    // Uh-oh, an error occurred!
-    console.log(error)
-    couleurStatut = "red";
-    texteStatut = `une erreur est survenue! code d'erreur: ${error}`
+    // Uh-oh, an error occurred! 
   });
 }
 

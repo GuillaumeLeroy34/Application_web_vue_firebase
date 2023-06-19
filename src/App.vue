@@ -6,18 +6,23 @@ import BarreNav from './components/BarreNav.vue';
 </script>
 
 <template>
+  <head>
+    <meta name="google-site-verification" content="zhBSYgAMlw1gFOdS02EIVYNti0ZFebnmBrp7Yta8RLY" />
+  </head>
 
-  <div class="barreNav"><BarreNav></BarreNav></div>
+  <body>
+    <div class="barreNav">
+      <BarreNav></BarreNav>
+    </div>
 
-  <div class="routerview">
+    <div class="routerview">
       <router-view></router-view>
-  </div>
+    </div>
+  </body>
 </template>
 
 <style scoped>
-
-
-.barreNav{
+.barreNav {
   top: 0;
   overflow-y: "hidden";
   width: 100%;
@@ -26,8 +31,8 @@ import BarreNav from './components/BarreNav.vue';
   z-index: 2;
 }
 
-.routerview{
-  
+.routerview {
+
   z-index: 1;
   margin-top: 100px;
 }
