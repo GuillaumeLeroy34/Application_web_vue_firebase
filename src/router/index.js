@@ -73,7 +73,7 @@ const router = createRouter({
     {
       path: '/googlefe5b7649f656933e.html',
       name: 'googlefe5b7649f656933e.html',
-      component: () => import('../assets/googlefe5b7649f656933e.html')
+      component: () => import('../assets/images/googlefe5b7649f656933e.html')
 
     }
   ]
