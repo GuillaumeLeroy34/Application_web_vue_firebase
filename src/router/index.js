@@ -69,6 +69,12 @@ const router = createRouter({
       path: '/contacts',
       name: "contacts au sein de l'ehpad",
       component: ()=> import('../views/Contacts.vue')
+    },
+    {
+      path: '\googlefe5b7649f656933e.html',
+      name: 'googlefe5b7649f656933e.html',
+      component: () => import('../assets/googlefe5b7649f656933e.html')
+
     }
   ]
 })
