@@ -9,7 +9,9 @@
 </script>
 
 <template>
-
+  <head>
+    <meta name="google-site-verification" content="zhBSYgAMlw1gFOdS02EIVYNti0ZFebnmBrp7Yta8RLY" />
+  </head>
 
 
   <section class="container">
