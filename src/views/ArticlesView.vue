@@ -260,12 +260,13 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 </script>
 
 <template>
+  <h1>Nouvelles de la résidence</h1>
+  <hr>
   <div v-if="isLoggedIn">
       </div>
   <div>
     <div v-show="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
 
-      <hr>
 
       <!-- //? form principal qui permet de poster des articles -->
       <!-- //TODO permettre l'ajout d'un pdf, soit par un radio button ( fonctionnerait de la même manière que les zones du ptut) ou autre -->

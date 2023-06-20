@@ -13,9 +13,9 @@
     <meta name="google-site-verification" content="zhBSYgAMlw1gFOdS02EIVYNti0ZFebnmBrp7Yta8RLY" />
   </head>
 
-
+  <h1>La résidence</h1>
   <section class="container">
-    <h1>La résidence:</h1>
+    
     <hr>
 <!--  -->
     <!-- mettre une photo ici de la résidence-->

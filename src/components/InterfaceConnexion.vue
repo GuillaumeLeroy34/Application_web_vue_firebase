@@ -83,9 +83,10 @@ function afficherIsLoggedIn() {
         <p class="errorMsg" v-if="errMsg">{{ errMsg }}</p><br>
 
         <!-- Submit button -->
-        <button type="submit" id="button-auth" class="btn btn-primary btn-block mb-4">Connexion</button>
+        <button type="submit" id="button-auth" >Connexion</button>
     </div>
         <div v-else>
+            <p>Connecté avec succès!</p>
             <button @click="logout">se déconnecter</button>
 
         </div>

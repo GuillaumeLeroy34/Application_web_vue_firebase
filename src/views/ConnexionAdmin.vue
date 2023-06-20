@@ -3,7 +3,8 @@ import InterfaceConnexion from '../components/InterfaceConnexion.vue';
 
 </script>
 <template>
-
+    
+<hr>
     <!-- comportera un composant pour la connexion admin, faudra utiliser le système de firebase de jb, possiblement le contacter pour connaître la marche à suivre ?    -->
     
     <div>

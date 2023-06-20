@@ -113,9 +113,12 @@ onBeforeMount(() => {
 </script>
 
 <template>
+  <h1>Galerie</h1>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <hr>
   <form @submit.prevent="addImage" v-if="isLoggedIn">
+   <h2> ajouter des images à la galerie</h2>
+   <hr>
     <input type="file" name="" id="" accept="image/*" @change="previewFiles">
     <input type="submit" value="">
   </form>
