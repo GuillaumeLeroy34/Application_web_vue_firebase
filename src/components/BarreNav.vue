@@ -32,7 +32,6 @@ p {
     display: inline;
     font-family: 'Great Vibes', cursive;
     font-size: xx-large;
-    padding-left: 3%;
     padding-right: 3%;
     margin: 0%;
 }
@@ -91,7 +90,9 @@ a  {
     padding-right: 3%;
 }
 
-
+.faux-lien{
+    padding-left: 3%;
+}
 
 a:hover {
     background-color: rgb(0, 205, 0);

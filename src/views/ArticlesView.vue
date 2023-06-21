@@ -55,10 +55,10 @@ let listeImages = reactive([]);
 
 let dateToday = new Date()
 let mois = dateToday.getMonth();
-if(mois < 10){
-mois = `0${mois}`
+if (mois < 10) {
+  mois = `0${mois}`
 }
- let dateEnString = (`${dateToday.getFullYear()}-${mois}-${dateToday.getDate()}`)
+let dateEnString = (`${dateToday.getFullYear()}-${mois}-${dateToday.getDate()}`)
 
 let isLoggedIn = ref(true); // variable de l'application qui contient les valeurs a afficher
 let couleurStatut = ref("grey");
@@ -77,7 +77,7 @@ onAuthStateChanged(auth, (user) => {
     //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
     isLoggedIn.value = true; // on affiche l'interface de gestion des articles
   } else {
-    isLoggedIn.value     = false;
+    isLoggedIn.value = false;
   }
 })
 
@@ -151,7 +151,7 @@ async function addArticle(urlImage) {
   updateDoc(docRef, { id: docRef.id })
   getArticles()
 
-  texteStatut= "article ajouté avec succès";
+  texteStatut = "article ajouté avec succès";
   couleurStatut = "green";
 }
 
@@ -195,7 +195,7 @@ function getImages() {
     }).catch((error) => {
       console.log(error)
       couleurStatut = "red"
-      texteStatut = "une erreur est survenue!"+error;
+      texteStatut = "une erreur est survenue!" + error;
 
       // Uh-oh, an error occurred!
     });
@@ -262,12 +262,9 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 <template>
   <h1>Nouvelles de la résidence</h1>
   <hr>
-  <div v-if="isLoggedIn">
-      </div>
+
   <div>
-    <div v-show="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
-
-
+    <div v-if="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
       <!-- //? form principal qui permet de poster des articles -->
       <!-- //TODO permettre l'ajout d'un pdf, soit par un radio button ( fonctionnerait de la même manière que les zones du ptut) ou autre -->
       <form @submit.prevent="addImage">
@@ -290,7 +287,7 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
         <input type="submit" value="valider">
       </form>
       <label> statut: <input type="text" name="" v-bind:value="texteStatut" readonly size="50"
-        :style="{ color: couleurStatut }">
+          :style="{ color: couleurStatut }">
       </label>
       <hr>
     </div>

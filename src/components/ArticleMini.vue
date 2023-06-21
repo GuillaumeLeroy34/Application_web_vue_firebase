@@ -20,19 +20,22 @@ const props = defineProps({
 </script>
 <template>
     <div class="article">
-        <img v-bind:src="source"    style="width: 600px; height: 300px; object-fit: fill;">
+        <img v-bind:src="source" style="width: 600px; height: 300px; object-fit: fill;">
         <span class="texte">
             <h1 class="titreArticle">{{ titre }}</h1>
+            <hr>
             <div>
-                <p class="contenuArticle">{{ contenu }}</p>
                 <p class="contenuArticle"> {{ date }}</p>
+                <p class="contenuArticle">{{ contenu }}</p>
             </div>
         </span>
-        <nav v-if="isVisible"> 
-            <button @click="afficherValeursArticle">changer texte</button>
-            <button>changer le titre</button>
-            <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article</button>
-             <button>changer l'image</button>
+        <nav v-if="isVisible">
+            <div  class="boutons-controle">
+                <button @click="afficherValeursArticle">changer texte</button>
+                <button>changer le titre</button>
+                <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article</button>
+                <button>changer l'image</button>
+            </div>
         </nav>
     </div>
 </template>
@@ -64,13 +67,24 @@ p {
 
 .texte {
     display: flex;
+    flex-direction: column;
     text-align: center;
-    background-color: #02baed
+    background-color: #02baed;
+    width: 50%;
+    
         /*#5A449C; */
 }
 
 .nav {
     display: flex;
+    
     vertical-align: middle;
+}
+
+.boutons-controle{
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 </style>
