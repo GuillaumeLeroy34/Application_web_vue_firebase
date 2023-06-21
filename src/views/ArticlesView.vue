@@ -3,7 +3,7 @@
 
 //& IMPORTS
 
-import { ref, reactive, onBeforeMount, onMounted } from 'vue';
+import { ref, reactive, onBeforeMount } from 'vue';
 import ArticleMini from '../components/ArticleMini.vue';
 
 
@@ -11,7 +11,7 @@ import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore"
 import { initializeApp } from "firebase/app";
 import { ref as storageRef, } from "firebase/storage";
 import { getFirestore, updateDoc, } from "firebase/firestore";
-import { getStorage, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "@firebase/storage";
+import { getStorage, uploadBytesResumable, getDownloadURL, listAll } from "@firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
