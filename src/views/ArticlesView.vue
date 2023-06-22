@@ -40,9 +40,7 @@ const storage = getStorage();
 
 const app = initializeApp(firebaseConfig); // Initialize Firebase
 const db = getFirestore(app); //Initialize Cloud Firestore and get a reference to the service
-const metadata = {
-  contentType: 'image/png',
-}; // métadonnée qui sert a firestore
+; // métadonnée qui sert a firestore
 
 
 
@@ -67,11 +65,13 @@ let titreArticle = ref('');
 let contenuArticle = ref("");
 let dateArticle = ref(dateEnString);
 let URLTelechargementImage = ref("");
-
+let URLTelechargementPDF = ref("");
 // sélection du fichier a post sur firebase storage
 let fichier; //déclaration du fichier dans la scope globale
-
+let fichierPDF;
 let auth = getAuth()
+
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     //si on a un utilisateur connecté ( ici les seuls utilisateurs qui peuvent se connecter sont les administrateurs)
@@ -82,10 +82,11 @@ onAuthStateChanged(auth, (user) => {
 })
 
 
-
-
 //* POST ajout d'une image sur firestore ( cela peut être n'importe quel type de fichier, mais il faudra écrire une autre fonction)
 function addImage() {
+  const metadata = {
+  contentType: 'image/png',
+}
   console.log(`${titreArticle} `);
   const storagerefFirestore = storageRef(storage, `/Images/${fichier.name}`)
   texteStatut = `l'image qui sera déployée sera "${fichier.name}"` //TODO changer ça en retour visuel sur le site
@@ -128,17 +129,68 @@ function addImage() {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         // console.log('File available at', downloadURL);
         URLTelechargementImage = downloadURL;
-        addArticle(downloadURL);
+        addPDF(downloadURL);
+      });
+    }
+  );
+}
+
+function addPDF(urlParametre) {
+  const metadata = {
+  contentType: '.pdf',
+}
+  console.log(`${titreArticle} `);
+  const storagerefFirestore = storageRef(storage, `/PDFs/${fichierPDF.name}`)
+  texteStatut = `le pdf qui sera déployé sera "${fichierPDF.name}"` //TODO changer ça en retour visuel sur le site
+  let uploadTask = uploadBytesResumable(storagerefFirestore, fichierPDF, metadata)
+  uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          texteStatut = 'Upload is running';
+          couleurStatut = "yellow"
+          break;
+      }
+    },
+    (error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+
+        // ...
+
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    },
+    () => {
+      // Upload completed successfully, now we can get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        // console.log('File available at', downloadURL);
+        URLTelechargementPDF = downloadURL;
+        addArticle(urlParametre,URLTelechargementPDF);
       });
     }
   );
 }
 
 
-
 //* POST ajoute un document dans la collection "Articles"
 //TODO implémenter la date d'ajout et la source de l'image dans la base de données ( utiliser l'url qui est retournée à la fin du post )
-async function addArticle(urlImage) {
+async function addArticle(urlImage, urlPDF) {
   //? variable interne a firebase
 
   let docRef = await addDoc(collection(db, "Articles"), {
@@ -146,6 +198,7 @@ async function addArticle(urlImage) {
     contenu: contenuArticle.value,
     date: dateArticle.value,
     source: urlImage,
+    sourcePDF: urlPDF,
     id: "testID"
   });
   updateDoc(docRef, { id: docRef.id })
@@ -155,28 +208,22 @@ async function addArticle(urlImage) {
   couleurStatut = "green";
 }
 
-//TODO retourner le statut de la publication de l'article dans un champ de texte coloré pour avertir l'utilisateur
-
-
-
 
 //* GET récupère les valeurs de la collection "Articles"
 async function getArticles() {
   listeArticles.splice(0, listeArticles.length) //? on nettoie la liste des articles
   queryListeArticles = await getDocs(collection(db, "Articles")) //? fetch
   queryListeArticles.forEach((element) => {
-    // console.log(element.data());
     listeArticles.push({
+      sourcepdf: element.data().sourcePDF,
       titre: element.data().titre,
       contenu: element.data().contenu,
       date: element.data().date,
       source: element.data().source,
       id: element.data().id
-    }) //? on rajoute les articles formatés dans la liste
+    }) //? on rajoute les articles formatés dans la liste interne
   });
-  // console.log(listeArticles)
 }
-
 
 
 //* GET récupère les url de toutes les images stockées dans le dossier /Images du bucket de firebase et les met dans la variable ListeImages
@@ -203,7 +250,6 @@ function getImages() {
 
 
 //~ exemple <option v-for="item of listeTypeDonnees" :key="item.id" :value="item.id"> {{ item.nom }} </option>
-
 //*DELETE supprime un article
 async function deleteArticle(idItem) {
   console.log(`l'article d'id: ${idItem} va être supprimé`);
@@ -222,6 +268,11 @@ function previewFiles(event) {
   fichier = event.target.files[0];
 }
 
+//*GET récupère le fichier pdf pour le post sur le bucket
+function previewFilesPDF(event){
+  fichierPDF = event.target.files[0];
+  console.log(fichierPDF.name)
+}
 
 ////   déprécié
 //!    important
@@ -253,14 +304,15 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 })
 
 
-  //todo voir pour stocker des pdf
 
 
 
 </script>
 
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <h1>Nouvelles de la résidence</h1>
+  <button @click="getArticles">getarticles</button>
   <hr>
 
   <div>
@@ -268,23 +320,26 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
       <!-- //? form principal qui permet de poster des articles -->
       <!-- //TODO permettre l'ajout d'un pdf, soit par un radio button ( fonctionnerait de la même manière que les zones du ptut) ou autre -->
       <form @submit.prevent="addImage">
-        <img v-for="image of listeImages" v-bind:src="image" style="width: 100px; height: 100px; object-fit: fill;">
-        <input type="file" name="" id="" accept="image/*" @change="previewFiles">
+        <img v-for="image of listeImages" class="input" v-bind:src="image" style="width: 100px; height: 100px; object-fit: fill;">
+        <label>image:<input type="file" name="" id="" accept="image/*" @change="previewFiles">
+        </label>
 
-        <label>
+        <label>pdf : <input type="file" class="input" name=""  accept=".pdf" @change="previewFilesPDF">
+      </label>
+        <label> 
           Titre de l'article:
           <input type="text" class="input" name="" id="input-titre" v-model="titreArticle"
             placeholder="titre de l'article">
         </label>
-
+<div>
         <label>
           Contenu de l'article
           <textarea name="" id="" class="input" cols="17" rows="3" v-model="contenuArticle"
             placeholder="résumé de l'article"></textarea>
         </label>
-
+</div>
         <input type="date" name="date" id="" v-model="dateArticle">
-        <input type="submit" value="valider">
+        <button v>valider <i class="fa fa-check"></i> </button>
       </form>
       <label> statut: <input type="text" name="" v-bind:value="texteStatut" readonly size="50"
           :style="{ color: couleurStatut }">
@@ -294,17 +349,18 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 
     <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:isVisible="isLoggedIn"
       v-bind:titre="article.titre" v-bind:contenu="article.contenu" v-bind:source="article.source"
-      v-bind:date="article.date" v-bind:identifiant="article.id">
+      v-bind:date="article.date" v-bind:identifiant="article.id" v-bind:sourcepdf="article.sourcepdf">
     </ArticleMini>
 
   </div>
 </template>
 <style scoped>
 label {
-
+  height: 100%;
   position: relative;
   display: table;
   vertical-align: middle;
+  text-align: center;
 }
 
 .input-titre {

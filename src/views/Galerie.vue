@@ -1,10 +1,9 @@
 <script setup>
 
 
-import { onBeforeMount, reactive, ref } from 'vue';
+import { onBeforeMount,onMounted, reactive, ref } from 'vue';
 import { getStorage, ref as storageRef, listAll, getDownloadURL, deleteObject, uploadBytesResumable } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import ArticlesView from './ArticlesView.vue';
 
 //& VARIABLES
 let listeImages = reactive([]);
@@ -25,6 +24,8 @@ const colors = [
   { "border-color": "#231F20" },
   { "border-color": "#5A449C" }
 ]
+
+
 
 onAuthStateChanged(auth, (webUser) => {
   if (webUser) {
@@ -107,6 +108,10 @@ function previewFiles(event) {
 onBeforeMount(() => {
   getImages();
 })
+
+onMounted(() => {
+  getImages();
+})
 //& DEBUG FUNCTIONS
 
 
@@ -120,16 +125,19 @@ onBeforeMount(() => {
    <h2> ajouter des images à la galerie</h2>
    <hr>
     <input type="file" name="" id="" accept="image/*" @change="previewFiles">
+
     <input type="submit" value="">
   </form>
-
-  <span v-for="(img, index) of   listeImages">
-    <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button> 
-                            <!-- si l'utilisateur est connecté, on applique la classe noZoom aux images -->
-    <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="width: 250px; height: 251px; object-fit:
-      fill;" :style="colors[index % 5]">
-
-  </span>
+<div class="conteneur-images">
+    
+      <span v-for="(img, index) of listeImages">
+        <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button> 
+                                <!-- si l'utilisateur est connecté, on applique la classe noZoom aux images -->
+        <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="width: 250px; height: 251px; object-fit:
+          fill;" :style="colors[index % 5]">
+    
+      </span>
+</div>
 </template>
 
 <style scoped>
@@ -155,5 +163,9 @@ button:hover{
   overflow: hidden;
 }
 
+.conteneur-images{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
 
 </style>

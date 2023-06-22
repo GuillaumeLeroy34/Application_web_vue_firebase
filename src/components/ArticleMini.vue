@@ -1,5 +1,7 @@
-<script setup>
+    <script setup>
 const emits = defineEmits(["supprimerArticle"]);
+
+
 function afficherValeursArticle() {
     console.log(`id de l'image: ${props.identifiant}`)
 }
@@ -10,6 +12,7 @@ const props = defineProps({
         type: String,
         default: '/src/assets/images/Placeholders/png.svg'
     },
+    sourcepdf: String,
     titre: String,
     contenu: String,
     date: String,
@@ -28,13 +31,13 @@ const props = defineProps({
                 <p class="contenuArticle"> {{ date }}</p>
                 <p class="contenuArticle">{{ contenu }}</p>
             </div>
+            <a v-bind:href="sourcepdf" target="_blank">lire plus</a>
         </span>
+       
         <nav v-if="isVisible">
             <div  class="boutons-controle">
-                <button @click="afficherValeursArticle">changer texte</button>
-                <button>changer le titre</button>
-                <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article</button>
-                <button>changer l'image</button>
+                
+                <button @click="$emit('supprimerArticle', this.identifiant)">supprimer l'article <i class="fa fa-trash"></i></button>
             </div>
         </nav>
     </div>
