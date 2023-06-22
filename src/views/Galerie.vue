@@ -103,6 +103,7 @@ function deleteImage(source){
 
 function previewFiles(event) {
   fichier = event.target.files[0];
+  addImage();
 }
 
 onBeforeMount(() => {
@@ -126,7 +127,7 @@ onMounted(() => {
    <hr>
     <input type="file" name="" id="" accept="image/*" @change="previewFiles">
 
-    <input type="submit" value="">
+    <!-- <input type="submit" value=""> -->
   </form>
 <div class="conteneur-images">
     
