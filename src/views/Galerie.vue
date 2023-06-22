@@ -54,6 +54,7 @@ function addImage() {
         case 'running':
           break;
       }
+      getImages();
     },
     (error) => {
       // A full list of error codes is available at
@@ -110,15 +111,16 @@ onBeforeMount(() => {
   getImages();
 })
 
-onMounted(() => {
-  getImages();
-})
 //& DEBUG FUNCTIONS
 
+function afficherListeImages(){
+  console.log(listeImages)
+}
 
 </script>
 
 <template>
+  <button @click="afficherListeImages">afficher liste images</button>
   <h1>Galerie</h1>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <hr>
