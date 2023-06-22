@@ -54,7 +54,7 @@ function addImage() {
         case 'running':
           break;
       }
-      getImages();
+     
     },
     (error) => {
       // A full list of error codes is available at
@@ -71,7 +71,9 @@ function addImage() {
           // Unknown error occurred, inspect error.serverResponse
           break;
       }
-    })}
+    })
+    getImages();
+  }
 
 
 //* GET récupération de toutes les images dans le dossier /Images du bucket firebase
