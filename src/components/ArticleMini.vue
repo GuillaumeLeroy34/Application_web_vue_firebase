@@ -55,6 +55,7 @@ const props = defineProps({
   #363539 noir:# 231F20 pourpre cramoisi:  #5A449C */
 
 img {
+    margin-right: 10px;
     border: 3px;
     border: solid;
     border-color: #ED028C;

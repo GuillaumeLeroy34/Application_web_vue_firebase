@@ -152,7 +152,6 @@ button{
   color: white;
   border: none;
   margin: 10px;
-  z-index: 10;
 }
 
 button:hover{
@@ -171,6 +170,9 @@ button:hover{
 .conteneur-images{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+}
+img{
+  margin: 10px;
 }
 
 </style>

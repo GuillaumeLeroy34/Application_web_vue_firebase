@@ -7,9 +7,8 @@ const router = useRouter();
 </script>
 
 <template>
-    <nav class="wrapper">
-        <!-- <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p> -->
-        <img src="../assets/images/Logo tilleuls.png" alt="">
+    <nav>
+        <img src="../assets/images/Logo tilleuls.png" alt=""  @click="router.push('/');">
         <router-link to="/" class="left-link">Accueil</router-link>
         <router-link to="/admission">Admission</router-link>
         <router-link to="/services">Services</router-link>
@@ -37,12 +36,17 @@ p {
 }
 
 img{
+    z-index: 3;
+    top: 30px;
     border: none;
     height: 70px;
+    cursor: pointer;
 }
 
 
 nav {
+    z-index: 3;
+    height: 75px;
     align-items: center;
     width: max-content;
     padding: 10px;
@@ -87,6 +91,9 @@ noir:# 231F20           pourpre   cramoisi: #5A449C
 */
 
 a  {
+    flex-direction: column;
+    display: flex;
+    height: 50px;
     font-weight: bold;
     vertical-align: middle;
     text-decoration: none;

@@ -95,14 +95,12 @@ function addImage() {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
-      texteStatut.value = 'Upload is ' + progress + '% done';
+      texteStatut = progress
       switch (snapshot.state) {
         case 'paused':
           console.log('Upload is paused');
           break;
         case 'running':
-          texteStatut.value = 'Upload is running';
-          couleurStatut = "yellow"
           break;
       }
     },
@@ -148,7 +146,7 @@ function addPDF(urlParametre) {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
-      texteStatut.value = 'Upload is ' + progress + '% done';
+      texteStatut = 'Upload is ' + progress + '% done';
       switch (snapshot.state) {
         case 'paused':
           console.log('Upload is paused');
@@ -205,7 +203,7 @@ async function addArticle(urlImage, urlPDF) {
   updateDoc(docRef, { id: docRef.id })
   getArticles()
 
-  texteStatut.value = "article ajouté avec succès";
+  texteStatut.value = "article ajouté avec succès!";
   couleurStatut.value = "green";
 }
 
@@ -298,16 +296,7 @@ function debugLogArticle() {
   console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-async function decompte() {
-  couleurStatut = "orange"
-  for (let i = 0; i < 10; i++) {
-    texteStatut.value = i;
-    await sleep(500);
-  }
-}
+
 
 //& MOUNT FUNCTIONS
 onBeforeMount(() => { // exécuter une fois au chargement de la page 
@@ -324,7 +313,6 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <h1>Nouvelles de la résidence</h1>
   <hr>
-  <button @click="decompte">bouton clic decompte</button>
 
   <div>
     <div v-if="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
@@ -334,10 +322,10 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
         <!-- <img v-for="image of listeImages" class="input" v-bind:src="image" style="width: 100px; height: 100px; object-fit: fill;"> -->
 
 
-        <label>image:<input type="file" name="" id="" accept="image/*" @change="previewFiles">
+        <label>illustration:<input type="file" name="" id="" accept="image/*" @change="previewFiles">
         </label>
 
-        <label>pdf : <input type="file" class="input" name="" accept=".pdf" @change="previewFilesPDF">
+        <label>contenu : <input type="file" class="input" name="" @change="previewFilesPDF">
         </label>
         <label>
           Titre de l'article:

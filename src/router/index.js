@@ -40,15 +40,6 @@ const router = createRouter({
       component: Articles,
     },
 
-
-    {
-      path: '/ajout-article',
-      name: 'ajouter un article',
-      component: () => import('../components/AjoutArticle.vue')
-    },
-
-
-
     {
       path: '/connexion-admin',
       name: 'connexion administration',

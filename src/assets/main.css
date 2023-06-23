@@ -5,12 +5,12 @@ noir:# 231F20             pourpre cramoisi: #5A449C
 
 
 html {
-    font-family: 'Abel';
+    font-family: 'Arial';
     font-size: 18px;
     background-color: aliceblue;
 }
 
-p::first-letter,
+
 h3::first-letter {
     font-size: 1.5rem;
     font-family: 'Great Vibes', cursive;
@@ -20,30 +20,25 @@ h3::first-letter {
 p,
 ul {
     color: black;
-    font-family: 'Abel';
     font-size: 18px;
     text-align: left;
-
 }
-                                  
 p,                                                                     
 h1 {                                                                     
     display: flex;                                                                     
     flex-direction: column;                                                                     
-    justify-content: center;                                                                     
-                                  
+    justify-content: center;    
+    ;                                                                 
+                                
 }                                                                     
                                   
-.titreArticle {                                                                     
-    margin: 10px;                                                                     
-}                                                                     
+                                                                  
                                   
                                   
 .text-box {
     padding-left: 15px;
-    
     border-radius: 5px;                                         
-    background-color: #98e190;                                                                     
+    /* background-color: #98e190;*/
     padding: 2px;                                                                     
     color: white;                                                                     
     width: 75%;                                                                     
@@ -53,9 +48,7 @@ h1 {
 text-align: justify;
 }                                                                     
                                   
-img {                                                                     
-    margin: 10px                                                                     
-}                                                                     
+                                                                 
 
 .navRouters>li {
      float: left;

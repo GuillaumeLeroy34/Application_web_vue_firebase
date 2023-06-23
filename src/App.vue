@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HomeView from './views/HomeView.vue';
 import BarreNav from './components/BarreNav.vue';
 
 </script>
@@ -26,12 +25,12 @@ import BarreNav from './components/BarreNav.vue';
   width: 100%;
   position: fixed;
   margin-top: 10px;
-  z-index: 2;
+  z-index: 1;
 }
 
 .routerview {
 
-  z-index: 1;
+  z-index: 30;
   margin-top: 100px;
 }
 </style>
