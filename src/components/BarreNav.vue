@@ -8,7 +8,7 @@ const router = useRouter();
 
 <template>
     <nav>
-        <img src="../assets/images/Logo tilleuls.png" alt=""  @click="router.push('/');">
+        <img src="../assets/images/Logo_tilleuls.png" alt=""  @click="router.push('/');">
         <router-link to="/" class="left-link">Accueil</router-link>
         <router-link to="/admission">Admission</router-link>
         <router-link to="/services">Services</router-link>
