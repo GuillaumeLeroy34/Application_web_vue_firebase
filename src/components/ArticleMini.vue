@@ -37,7 +37,7 @@ const props = defineProps({
         <nav v-if="isVisible">
             <div  class="boutons-controle">
                 
-                <button @click="afficherValeursArticle">supprimer l'article <i class="fa fa-trash"></i></button>
+                <button @click="$emit('supprimerArticle', props.identifiant)">supprimer l'article <i class="fa fa-trash"></i></button>
             </div>
         </nav>
     </div>
@@ -55,7 +55,7 @@ const props = defineProps({
   #363539 noir:# 231F20 pourpre cramoisi:  #5A449C */
 
 img {
-    margin-right: 10px;
+    margin: 10px;
     border: 3px;
     border: solid;
     border-color: #ED028C;
