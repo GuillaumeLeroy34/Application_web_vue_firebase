@@ -37,7 +37,7 @@ const props = defineProps({
         <nav v-if="isVisible">
             <div  class="boutons-controle">
                 
-                <button @click="$emit('supprimerArticle')">supprimer l'article <i class="fa fa-trash"></i></button>
+                <button @click="afficherValeursArticle">supprimer l'article <i class="fa fa-trash"></i></button>
             </div>
         </nav>
     </div>
