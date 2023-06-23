@@ -83,10 +83,12 @@ html {
 .image {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   border-radius: 1%;
+  align-items: center;
   height: 1000px;
+
+
   background-image: url("../assets/images/fond_ecran_accueil_transparent.JPG");
   background-position: center;
   background-repeat: no-repeat;
@@ -102,21 +104,13 @@ h3::first-letter {
 }
 
 p{
-  width: 55%;
+  width: 75%;
 }
 
 p,
-ul {
+ul {  
   text-align: center;
   padding: 1%;
 }
 
-.text-box {
-  display: contents;
-  text-align: center;
-  width: 75%;
-  justify-content: center;
-
-  padding: 2px;
-  color: white;
-}</style>  
+</style>  

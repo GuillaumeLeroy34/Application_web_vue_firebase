@@ -139,7 +139,7 @@ function afficherListeImages(){
       <span v-for="(img, index) of listeImages">
         <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button> 
                                 <!-- si l'utilisateur est connecté, on applique la classe noZoom aux images -->
-        <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="height: 350px; width: 400px; object-fit:
+        <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="height: 275px; object-fit:
         fill;" :style="colors[index % 5]">
     
       </span>
@@ -170,7 +170,7 @@ button:hover{
 
 .conteneur-images{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 img{
   margin: 10px;

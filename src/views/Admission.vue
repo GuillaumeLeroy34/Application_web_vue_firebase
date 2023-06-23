@@ -13,47 +13,50 @@
             referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 
-        <div class="text-box">
-            <p>Lors de votre entrée, un dossier vous sera remis.
-                Il comprend divers formulaires que vous voudrez bien remplir et nous retourner dans les meilleurs délais.
-                Le contrat de séjour et le règlement intérieur devront être lus attentivement et signés.
-            </p>
-        </div>
-        <div class="text-box">
-            <p>Pour tout renseignement complémentaire, vous pouvez vous adresser au secrétariat, ouvert du lundi au vendredi
-                de 9h00 à 12h00 et de 13h30 à 17h00.
-            </p>
-            <p>Il est possible de compléter le formulaire <a
-                    href="https://www.formulaires.service-public.fr/gf/cerfa_14732.do" target="_blank">en cliquant ici</a>
-                ou de compléter votre demande sur <a href="https://trajectoire.sante-ra.fr/Trajectoire/" target="_blank">via
-                    trajectoire.</a></p>
 
-        </div>
+        <p>Lors de votre entrée, un dossier vous sera remis.
+            Il comprend divers formulaires que vous voudrez bien remplir et nous retourner dans les meilleurs délais.
+            Le contrat de séjour et le règlement intérieur devront être lus attentivement et signés.
+        </p>
+
+
+        <p>Pour tout renseignement complémentaire, vous pouvez vous adresser au secrétariat, ouvert du lundi au vendredi
+            de 9h00 à 12h00 et de 13h30 à 17h00.
+        </p>
+
+        <p>Il est possible de compléter le formulaire <a href="https://www.formulaires.service-public.fr/gf/cerfa_14732.do"
+                target="_blank">en cliquant ici</a>
+            ou de compléter votre demande sur <a href="https://trajectoire.sante-ra.fr/Trajectoire/" target="_blank">via
+                trajectoire.</a></p>
+
         <h2> Les frais de séjour</h2>
-        <div class="text-box">
-            <p><span class="underlined">Aucune caution n'est demandée lors de l'admission.</span>
-                Au 1er janvier de chaque année, un arrêté du président du Conseil Général fixe les prix de journée
-                applicables à
-                l'établissement.
-                Les frais de séjour sont payables mensuellement à terme échu au Trésor Public.
-            </p>
 
+        <p>Aucune caution n'est demandée lors de l'admission.
+            Au 1er janvier de chaque année, un arrêté du président du Conseil Général fixe les prix de journée
+            applicables à l'établissement. Les frais de séjour sont payables mensuellement à terme échu au Trésor Public.
+        </p>
 
-        </div>
     </div>
 </template>
 
 
 <style scoped>
 .image {
-    height: 1200px;
     background-image: url("../assets/images/DSC01098.JPG");
     position: relative;
-    display: table;
-    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    border-radius: 1%;
+    height: 1300px;
 }
 
+p{
+    width: 65%;
+    text-align: center;
+}
 
 a {
     color: rgb(0, 59, 161);
@@ -67,4 +70,5 @@ iframe {
 
 .underlined {
     text-decoration: underline;
-}</style>
+}
+</style>

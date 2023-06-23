@@ -17,6 +17,10 @@ h3::first-letter {
     color: #21b300
 }
 
+p{
+  font-weight: bold;
+}
+
 p,
 ul {
     color: black;
@@ -25,7 +29,6 @@ ul {
 }
 p,                                                                     
 h1 {                                                                     
-    display: flex;                                                                     
     flex-direction: column;                                                                     
     justify-content: center;    
     ;                                                                 
