@@ -108,6 +108,10 @@ ul#vie-quotidienne{
     text-align: center;
 }
 
+h3::first-letter{
+    color: aliceblue
+}
+
 h3{
     text-align: center;
 }
