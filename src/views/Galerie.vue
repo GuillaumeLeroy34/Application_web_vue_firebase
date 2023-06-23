@@ -1,7 +1,7 @@
 <script setup>
 
 
-import { onBeforeMount,onMounted, reactive, ref } from 'vue';
+import { onBeforeMount, reactive, ref } from 'vue';
 import { getStorage, ref as storageRef, listAll, getDownloadURL, deleteObject, uploadBytesResumable } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
@@ -89,6 +89,7 @@ function getImages() {
 
         // All the items under listRef.
       });
+      listeImages.sort()
     }).catch((error) => {
       console.log(error)
       // Uh-oh, an error occurred!

@@ -60,7 +60,7 @@
                 <div class="text-box">
                     <p>Vous pouvez recevoir vos familles et amis aux heures qui vous conviennent.
                         Le service du restaurant est ouvert aux familles et amis.
-                        Il est possible de sortir librement, nous vous prions toutesfois d'informer le personnel en cas
+                        Il est possible de sortir librement, nous vous prions toutefois d'informer le personnel en cas
                         de départ prolongé ou d'absence à un repas.
                     </p>
                 </div>

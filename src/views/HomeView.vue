@@ -45,11 +45,11 @@
 
 
           <p> Les chambres comprennent des prises de télévision et de téléphone.
-            Le mobilier comprend un lit, une table, un chevet, un placard penderie, une chfaise et un fauteuil.
+            Le mobilier comprend un lit, une table, un chevet, un placard penderie, une chaise et un fauteuil.
             Il est tout à fait possible de personnaliser la chambre en apportant ses propres meubles.</p>
 
 
-          <p> Depuis le 1e décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes âgées
+          <p> Depuis le 1er décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes âgées
             Dependantes.
             il est donc possible d'accueillir des personnes ayant perdu leur autonomie.
             L'établissement a recruté du personnel médical tel que des infirmiers, des aides soignants, un psychologue, et
