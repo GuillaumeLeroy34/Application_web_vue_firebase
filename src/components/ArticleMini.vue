@@ -23,7 +23,7 @@ const props = defineProps({
 </script>
 <template>
     <div class="article">
-        <img v-bind:src="source" style="width: 600px; height: 300px; object-fit: fill;">
+        <img v-bind:src="source" style="height: 300px; object-fit: fill;">
         <span class="texte">
             <h1 class="titreArticle">{{ titre }}</h1>
             <hr>

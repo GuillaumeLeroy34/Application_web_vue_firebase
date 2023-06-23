@@ -27,8 +27,7 @@
             <li>
                 <h3> Linge</h3>
                 <div class="text-box">
-                    <p>Le linge hôtelier est fourni par la Résidence. Chaque résident apporte son linge personnel 
-                        préalablement marqué. L'ensemble du linge est entretenu par la blanchisserie de l'établissement.
+                    <p>Le linge hôtelier est fourni par la Résidence. L'ensemble du linge est entretenu par la blanchisserie de l'établissement.
                     </p>
                 </div>
             </li>
@@ -51,7 +50,7 @@
             <li>
                 <h3> Culte</h3>
                 <div class="text-box">
-                    <p>Le résident est libre de recevoir le ministre du culte de son choix.
+                    <p>Le résident est libre de recevoir le représentant du culte de son choix.
                         Une salle de culte est à sa disposition.
                     </p>
                 </div>
@@ -70,7 +69,7 @@
                 <h3> Animations et les loisirs</h3>
                 <div class="text-box">
                     <p>Des activités ludiques sont organisées tous les jours par le personnel de l'établissement et des
-                        intervenantes extérieurs ( ergothérapeutes, professeur de gymnastique) favorisant ainsi 
+                        intervenants extérieurs (ergothérapeutes, professeur de gymnastique) favorisant ainsi 
                         le maintien de l'autonomie des résidents.
                         La Résidence dispose d'une animatrice à temps plein.
                         Des sorties, promenades et des excursions sont programmées au cours de l'année.

@@ -60,7 +60,7 @@ let dateEnString = (`${dateToday.getFullYear()}-${mois}-${dateToday.getDate()}`)
 
 let isLoggedIn = ref(true); // variable de l'application qui contient les valeurs a afficher
 let couleurStatut = ref("grey");
-let texteStatut = "en attente";
+let texteStatut = ref("en attente");
 let titreArticle = ref('');
 let contenuArticle = ref("");
 let dateArticle = ref(dateEnString);
@@ -85,23 +85,23 @@ onAuthStateChanged(auth, (user) => {
 //* POST ajout d'une image sur firestore ( cela peut être n'importe quel type de fichier, mais il faudra écrire une autre fonction)
 function addImage() {
   const metadata = {
-  contentType: 'image/png',
-}
+    contentType: 'image/png',
+  }
   console.log(`${titreArticle} `);
   const storagerefFirestore = storageRef(storage, `/Images/${fichier.name}`)
-  texteStatut = `l'image qui sera déployée sera "${fichier.name}"` //TODO changer ça en retour visuel sur le site
   let uploadTask = uploadBytesResumable(storagerefFirestore, fichier, metadata)
   uploadTask.on('state_changed',
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
+      texteStatut.value = 'Upload is ' + progress + '% done';
       switch (snapshot.state) {
         case 'paused':
           console.log('Upload is paused');
           break;
         case 'running':
-          texteStatut = 'Upload is running';
+          texteStatut.value = 'Upload is running';
           couleurStatut = "yellow"
           break;
       }
@@ -137,8 +137,8 @@ function addImage() {
 
 function addPDF(urlParametre) {
   const metadata = {
-  contentType: '.pdf',
-}
+    contentType: '.pdf',
+  }
   console.log(`${titreArticle} `);
   const storagerefFirestore = storageRef(storage, `/PDFs/${fichierPDF.name}`)
   texteStatut = `le pdf qui sera déployé sera "${fichierPDF.name}"` //TODO changer ça en retour visuel sur le site
@@ -148,6 +148,7 @@ function addPDF(urlParametre) {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
+      texteStatut.value = 'Upload is ' + progress + '% done';
       switch (snapshot.state) {
         case 'paused':
           console.log('Upload is paused');
@@ -181,7 +182,7 @@ function addPDF(urlParametre) {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         // console.log('File available at', downloadURL);
         URLTelechargementPDF = downloadURL;
-        addArticle(urlParametre,URLTelechargementPDF);
+        addArticle(urlParametre, URLTelechargementPDF);
       });
     }
   );
@@ -204,8 +205,8 @@ async function addArticle(urlImage, urlPDF) {
   updateDoc(docRef, { id: docRef.id })
   getArticles()
 
-  texteStatut = "article ajouté avec succès";
-  couleurStatut = "green";
+  texteStatut.value = "article ajouté avec succès";
+  couleurStatut.value = "green";
 }
 
 
@@ -241,8 +242,8 @@ function getImages() {
       });
     }).catch((error) => {
       console.log(error)
-      couleurStatut = "red"
-      texteStatut = "une erreur est survenue!" + error;
+      couleurStatut.value = "red"
+      texteStatut.value = "une erreur est survenue!" + error;
 
       // Uh-oh, an error occurred!
     });
@@ -256,7 +257,7 @@ async function deleteArticle(idItem) {
   let itemRef = doc(db, "Articles", idItem)
   await deleteDoc(itemRef).then(() => {
     // File deleted successfully
-    texteStatut = "Article supprimé avec succès."
+    texteStatut.value = "Article supprimé avec succès."
     getArticles();
   }).catch((error) => {
     // Uh-oh, an error occurred! 
@@ -269,7 +270,7 @@ function previewFiles(event) {
 }
 
 //*GET récupère le fichier pdf pour le post sur le bucket
-function previewFilesPDF(event){
+function previewFilesPDF(event) {
   fichierPDF = event.target.files[0];
   console.log(fichierPDF.name)
 }
@@ -297,6 +298,16 @@ function debugLogArticle() {
   console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function decompte() {
+  couleurStatut = "orange"
+  for (let i = 0; i < 10; i++) {
+    texteStatut.value = i;
+    await sleep(500);
+  }
+}
 
 //& MOUNT FUNCTIONS
 onBeforeMount(() => { // exécuter une fois au chargement de la page 
@@ -312,38 +323,40 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <h1>Nouvelles de la résidence</h1>
-  <button @click="getArticles">getarticles</button>
   <hr>
+  <button @click="decompte">bouton clic decompte</button>
 
   <div>
     <div v-if="isLoggedIn"> <!-- //? sert a contrôler la visibilité du form  -->
       <!-- //? form principal qui permet de poster des articles -->
       <!-- //TODO permettre l'ajout d'un pdf, soit par un radio button ( fonctionnerait de la même manière que les zones du ptut) ou autre -->
       <form @submit.prevent="addImage">
-        <img v-for="image of listeImages" class="input" v-bind:src="image" style="width: 100px; height: 100px; object-fit: fill;">
+        <!-- <img v-for="image of listeImages" class="input" v-bind:src="image" style="width: 100px; height: 100px; object-fit: fill;"> -->
+
+
         <label>image:<input type="file" name="" id="" accept="image/*" @change="previewFiles">
         </label>
 
-        <label>pdf : <input type="file" class="input" name=""  accept=".pdf" @change="previewFilesPDF">
-      </label>
-        <label> 
+        <label>pdf : <input type="file" class="input" name="" accept=".pdf" @change="previewFilesPDF">
+        </label>
+        <label>
           Titre de l'article:
           <input type="text" class="input" name="" id="input-titre" v-model="titreArticle"
             placeholder="titre de l'article">
         </label>
-<div>
-        <label>
-          Contenu de l'article
-          <textarea name="" id="" class="input" cols="17" rows="3" v-model="contenuArticle"
-            placeholder="résumé de l'article"></textarea>
-        </label>
-</div>
+        <div>
+          <label>
+            Contenu de l'article
+            <textarea name="" id="" class="input" cols="17" rows="3" v-model="contenuArticle"
+              placeholder="résumé de l'article"></textarea>
+          </label>
+        </div>
         <input type="date" name="date" id="" v-model="dateArticle">
         <button v>valider <i class="fa fa-check"></i> </button>
       </form>
-      <label> statut: <input type="text" name="" v-bind:value="texteStatut" readonly size="50"
-          :style="{ color: couleurStatut }">
-      </label>
+
+      <p  :style="{ color: couleurStatut }">statut: {{ texteStatut }}</p>
+
       <hr>
     </div>
 

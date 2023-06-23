@@ -8,14 +8,14 @@ const router = useRouter();
 
 <template>
     <nav class="wrapper">
-        <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p>
+        <!-- <p @click="router.push('/');" class="faux-lien">Résidence "Les Tilleuls"</p> -->
+        <img src="../assets/images/Logo tilleuls.png" alt="">
         <router-link to="/" class="left-link">Accueil</router-link>
         <router-link to="/admission">Admission</router-link>
         <router-link to="/services">Services</router-link>
         <router-link to="/articles">Actualités</router-link>
         <router-link to="/galerie">Galerie</router-link>
-        <router-link to="/contacts">Contacts</router-link>
-        <router-link to="/connexion-admin" class="right-link">Connexion</router-link>
+        <router-link to="/contacts" class="right-link">Contacts</router-link>
 
     </nav>
     <!-- <img src="/src/assets/images/cadre TIlleuls.png" style="width: 100px; height: 100px; object-fit: fill;"> -->
@@ -34,6 +34,11 @@ p {
     font-size: xx-large;
     padding-right: 3%;
     margin: 0%;
+}
+
+img{
+    border: none;
+    height: 70px;
 }
 
 

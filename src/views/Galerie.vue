@@ -138,8 +138,8 @@ function afficherListeImages(){
       <span v-for="(img, index) of listeImages">
         <button v-if="isLoggedIn" @click="deleteImage(img)"> <i class="fa fa-trash"></i></button> 
                                 <!-- si l'utilisateur est connecté, on applique la classe noZoom aux images -->
-        <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="width: 250px; height: 251px; object-fit:
-          fill;" :style="colors[index % 5]">
+        <img :src="img" alt="" class="image" :class="{noZoom: isLoggedIn}" style="height: 350px; width: 400px; object-fit:
+        fill;" :style="colors[index % 5]">
     
       </span>
 </div>

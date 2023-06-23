@@ -9,17 +9,17 @@
 
 
     <div class="text-box">
-        <p>La Résidence reçoit des personnes autonomes de plus de 60 ans. Lors de votre entrée, un dossier vous sera remis.
+        <p>Lors de votre entrée, un dossier vous sera remis.
             Il comprend divers formulaires que vous voudrez bien remplir et nous retourner dans les meilleurs délais.
             Le contrat de séjour et le règlement intérieur devront être lus attentivement et signés.
         </p>
     </div>
     <div class="text-box">
         <p>Pour tout renseignement complémentaire, vous pouvez vous adresser au secrétariat, ouvert du lundi au vendredi
-            de 9h00 à 12h00 et de 13h30 à 17h00, et le samedi de 9h00 à 12h00.
+            de 9h00 à 12h00 et de 13h30 à 17h00.
         </p>
         <p>il est possible de compléter le formulaire <a href="https://www.formulaires.service-public.fr/gf/cerfa_14732.do"
-                target="_blank">en cliquant ici</a></p>
+                target="_blank">en cliquant ici</a> ou de compléter votre demande sur <a href="https://trajectoire.sante-ra.fr/Trajectoire/" target="_blank">via trajectoire</a></p> 
 
     </div>
     <h2> Les frais de séjour</h2>
@@ -29,6 +29,7 @@
             l'établissement.
             Les frais de séjour sont payables mensuellement à terme échu au Trésor Public.
         </p>
+
 
     </div>
 </template>

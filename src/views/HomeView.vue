@@ -15,9 +15,9 @@
 
   <h1>La résidence</h1>
   <section class="container">
-    
+
     <hr>
-<!--  -->
+    <!--  -->
     <!-- mettre une photo ici de la résidence-->
 
 
@@ -43,24 +43,22 @@
       <div class="text-box">
         <p>La résidence "Les Tilleuls" a une capacité d'accueil de 53 lits dont une place d'hébergement temporaire.
           Les chambres sont à 1 ou 2 lits, avec une superficie de 20 et 30m², équipées d'une salle de bain individuelle.
-        </p>
+</p>
+
+
+        <p>  Les chambres comprennent des prises de télévision et de téléphone.
+          Le mobilier comprend un lit, une table, un chevet, un placard penderie, une chfaise et un fauteuil.
+          Il est tout à fait possible de personnaliser la chambre en apportant ses propres meubles.</p>
+
+
+<p>          Depuis le 1e décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes âgées
+          Dependantes.
+          il est donc possible d'accueillir des personnes ayant perdu leur autonomie.
+          L'établissement a recruté du personnel médical tel que des infirmiers, des aides soignants, un psychologue, et
+          un médecin coordonateur.</p>
+      
       </div>
     </div>
-    <div class="text-box">
-      <p>Les chambres comprennent des prises de télévision et de téléphone.
-        Le mobilier comprend un lit, une table, un chevet, un placard penderie, une chaise et un fauteuil.
-        Il est tout à fait possible de personnaliser la chambre en apportant ses propres meubles.
-      </p>
-    </div>
-
-    <div class="text-box">
-      <p>Depuis le 1e décembre 2004, la Résidence "Les Tilleuls" est un Établissement Hébergeant des Personnes âgées
-        Dependantes.
-        il est donc possible d'accueillir des personnes ayant perdu leur autonomie.
-        L'établissement a recruté du personnel médical tel que des infirmières, des aides soignants, une psychologue, et
-        un médecin coordonateur.
-      </p>
-    </div>      
     <div id="map"></div> <!-- composant pour mettre la carte google maps-->
   </section>
 
@@ -88,8 +86,8 @@
   <div class="text-box">
     <ul>
       <li>l'hébergement</li> -->
-      <!-- //TODO voir si il est possible de récupérer des information, le cas échéant transformer ces éléments en lien de redirection vers des pages-->
-     <!-- <li>les repas</li>
+  <!-- //TODO voir si il est possible de récupérer des information, le cas échéant transformer ces éléments en lien de redirection vers des pages-->
+  <!-- <li>les repas</li>
       <li>la participation dépendance</li>
     </ul>
   </div>
@@ -179,30 +177,31 @@
   </ul> -->
 </template>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); /*import de la police d'écriture manuscrite pour le titre */
-  @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');      /*import de la police d'écriture pour les corps de texte, sans sérif*/
-  
-html{
-font-family: 'Abel';
-font-size: 18px;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+/*import de la police d'écriture manuscrite pour le titre */
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+/*import de la police d'écriture pour les corps de texte, sans sérif*/
+
+html {
+  font-family: 'Abel';
+  font-size: 18px;
 }
-p::first-letter, h3::first-letter{
+
+p::first-letter,
+h3::first-letter {
   font-size: 1.5rem;
   font-family: 'Great Vibes', cursive;
-  color:  #00AEEF
+  color: #00AEEF
 }
-p, ul{
+
+p,
+ul {
   font-family: 'Abel';
   font-size: 18px;
 
 }
 
-.text-box{
-  background-color: #795cce;
+.text-box {
   padding: 2px;
   color: white;
-}
-
-
-
-</style>  
+}</style>  
