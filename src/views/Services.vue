@@ -13,7 +13,7 @@
             <li>
                 <h3> Restauration</h3>
                 <div class="text-box">
-                    <p>Les petit déjeuners sont servis en chambre à partir de 7h30. Les repas, préparés par nos
+                    <p>Les petits déjeuners sont servis en chambre à partir de 7h30. Les repas, préparés par nos
                         cuisiniers, sont pris en salle de restaurant.
                         Ils peuvent être pris en chambre à titre exceptionnel et momentané, avec justification d'une
                         prescription

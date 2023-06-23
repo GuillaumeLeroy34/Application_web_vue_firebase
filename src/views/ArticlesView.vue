@@ -296,6 +296,9 @@ function debugLogArticle() {
   console.log(`titreArticle: ${titreArticle.value}\n contenuArticle:${contenuArticle.value}\n dateArticle: ${dateArticle.value}\n sourceURLImage: ${URLTelechargementImage.value}\n `);
 }
 
+function succes(){
+  console.log(`marche avec succès`);
+}
 
 
 //& MOUNT FUNCTIONS
@@ -348,7 +351,7 @@ onBeforeMount(() => { // exécuter une fois au chargement de la page
       <hr>
     </div>
 
-    <ArticleMini @supprimerArticle="deleteArticle" id v-for="article of listeArticles" v-bind:isVisible="isLoggedIn"
+    <ArticleMini @supprimerArticle="succes"  v-for="article of listeArticles" v-bind:isVisible="isLoggedIn"
       v-bind:titre="article.titre" v-bind:contenu="article.contenu" v-bind:source="article.source"
       v-bind:date="article.date" v-bind:identifiant="article.id" v-bind:sourcepdf="article.sourcepdf">
     </ArticleMini>
